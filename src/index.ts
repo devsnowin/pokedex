@@ -4,8 +4,10 @@ import { fetcher } from './lib/fetcher';
 const app = express();
 
 app.get('/', async (req: Request, res: Response) => {
+  const limit = req.query.limit || 1000;
+
   try {
-    const { data } = await fetcher('/?limit=1000');
+    const { data } = await fetcher(`/?limit=${limit}`);
 
     const pokemons = data.results.map((pokemon, index) => {
       const paddedId = ('00' + (index + 1)).slice(-3);
